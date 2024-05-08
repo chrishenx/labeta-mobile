@@ -7,7 +7,7 @@ class SingleClickAuth extends StatelessWidget {
   final Function onSignInStarted;
   final Function onSignInCompleted;
 
-  SingleClickAuth({required this.onSignInCompleted, required this.onSignInStarted});
+  const SingleClickAuth({super.key, required this.onSignInCompleted, required this.onSignInStarted});
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +15,24 @@ class SingleClickAuth extends StatelessWidget {
 
     return Container(
       child: Column(children: [
-        Text('-- Or enter using --'),
+        const Text('-- Or enter using --'),
         Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           IconButton(
               icon: const Icon(FontAwesomeIcons.facebook),
               iconSize: iconsSize,
               color: Colors.blue[600],
               onPressed: () {}),
-          IconButton(
-              icon: const Icon(FontAwesomeIcons.google),
+          const IconButton(
+              icon: Icon(FontAwesomeIcons.google),
               iconSize: iconsSize,
               onPressed: null),
           IconButton(
-              icon: Icon(FontAwesomeIcons.userSecret),
+              icon: const Icon(FontAwesomeIcons.userSecret),
               iconSize: iconsSize,
               tooltip: 'Anounymous user',
               onPressed: () async {
                 onSignInStarted.call();
+                Logger.log('Signing in anonymous user...');
                 final user = await AuthService.signInAnonymously();
                 if (user != null) {
                   Logger.log(

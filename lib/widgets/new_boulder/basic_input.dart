@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class NewBoulderBasicInput extends StatefulWidget {
   final Function onCancel;
 
-  NewBoulderBasicInput({required this.onCancel});
+  const NewBoulderBasicInput({super.key, required this.onCancel});
 
   @override
   _NewBoulderBasicInputState createState() => _NewBoulderBasicInputState();
@@ -17,8 +17,8 @@ class NewBoulderBasicInput extends StatefulWidget {
 
 class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
   final formKey = GlobalKey<FormState>(debugLabel: 'Login Form');
-  late File currentImageFile;
-  late String grade;
+  File? currentImageFile;
+  String? grade;
   String name = '';
 
   void handleSubmit() {
@@ -71,14 +71,14 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
     // TODO Implement transition to next page
     return Row(
       children: [
-        Spacer(),
+        const Spacer(),
         Padding(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 40)),
-                child: Text('Next'),
-                onPressed: areFieldsCompleted() ? () => {} : null)),
+                    padding: const EdgeInsets.symmetric(horizontal: 40)),
+                onPressed: areFieldsCompleted() ? () => {} : null,
+                child: const Text('Next'))),
       ],
     );
   }
@@ -109,17 +109,14 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
 
   void spawnCamera(context) async {
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => CameraCamera(
-          onFile: (file) {
-            Navigator.pop(context);
-            setState(() {
-              currentImageFile = file;
-            });
-          })
-      )
-    );
+        context,
+        MaterialPageRoute(
+            builder: (_) => CameraCamera(onFile: (file) {
+                  Navigator.pop(context);
+                  setState(() {
+                    currentImageFile = file;
+                  });
+                })));
   }
 
   @override
@@ -144,46 +141,47 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
             children: [
               Expanded(
                 child: Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(children: [
-                      Spacer(),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: themData.canvasColor,
-                          shape: BoxShape.circle,
-                        ),
-                        margin: EdgeInsets.only(bottom: 8),
-                        padding: EdgeInsets.all(8),
-                        child: IconButton(
-                          iconSize: 40,
-                          icon: Icon(FontAwesomeIcons.camera),
-                          onPressed: () {
-                            spawnCamera(context);
-                          },
-                        ),
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[400],
+                      image: currentImageFile == null
+                          ? null
+                          : DecorationImage(
+                              image: FileImage(currentImageFile!),
+                              fit: BoxFit.cover)),
+                  child: Column(children: [
+                    const Spacer(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: themData.canvasColor,
+                        shape: BoxShape.circle,
                       ),
-                      TextButton(
-                        style: TextButton.styleFrom(
-                            foregroundColor: themData.colorScheme.background),
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(8),
+                      child: IconButton(
+                        iconSize: 40,
+                        icon: const Icon(FontAwesomeIcons.camera),
                         onPressed: () {
                           spawnCamera(context);
                         },
-                        child: Text(
-                            currentImageFile == null
-                                ? 'Take a pic of the boulder'
-                                : 'Replace the pic',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 18)),
                       ),
-                      Spacer(),
-                    ]),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[400],
-                        image: currentImageFile == null
-                            ? null
-                            : DecorationImage(
-                                image: FileImage(currentImageFile),
-                                fit: BoxFit.cover))),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: themData.colorScheme.background),
+                      onPressed: () {
+                        spawnCamera(context);
+                      },
+                      child: Text(
+                          currentImageFile == null
+                              ? 'Take a pic of the boulder'
+                              : 'Replace the pic',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                    ),
+                    const Spacer(),
+                  ]),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),

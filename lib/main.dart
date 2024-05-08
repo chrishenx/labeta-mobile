@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.lime[900],
           primarySwatch: Colors.lime,
-          colorScheme: ColorScheme.dark().copyWith(secondary: Colors.blue[500]),
+          colorScheme: const ColorScheme.light().copyWith(secondary: Colors.blue[500]),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: AuthWrapper(),

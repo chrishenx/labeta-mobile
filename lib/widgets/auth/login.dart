@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
       padding: const EdgeInsets.only(top: 8),
       child: TextFormField(
         validator: Validators.validateEmail,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'someone@example.com', labelText: 'Email'),
       ),
     );
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: TextFormField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'Password', labelText: 'Type your password'),
         obscureText: true,
         validator: Validators.validatePassword,
@@ -52,8 +52,8 @@ class _LoginState extends State<Login> {
           child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
-                child: Text('Login'),
                 onPressed: handleSubmit,
+                child: const Text('Login'),
               )),
         )
       ],
@@ -64,14 +64,14 @@ class _LoginState extends State<Login> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Text("Don't have an account?"),
+        const Text("Don't have an account?"),
         TextButton(
             onPressed: () {
               if (widget.onSignUpClick != null) {
                 widget.onSignUpClick();
               }
             },
-            child: Text('Sign up here!'))
+            child: const Text('Sign up here!'))
       ]),
     );
   }

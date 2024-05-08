@@ -8,7 +8,9 @@ class AuthService {
 
   static Future<User?> signInAnonymously() async {
     try {
+      Logger.log('Logging in anonymously...');
       UserCredential userCredential = await _firebaseAuth.signInAnonymously();
+      Logger.log('Successfully logging in: $userCredential');
       return userCredential.user;
     } catch (error) {
       Logger.error('Error signing in anonymously: $error');
