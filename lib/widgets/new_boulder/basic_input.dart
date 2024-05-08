@@ -42,7 +42,7 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
         },
         validator: Validators.validatePrintable,
         decoration:
-            InputDecoration(hintText: 'Amazing boulder', labelText: 'Name'),
+            const InputDecoration(hintText: 'Amazing boulder', labelText: 'Name'),
       ),
     );
   }
@@ -51,7 +51,7 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
     return Padding(
         padding: const EdgeInsets.only(top: 8),
         child: DropdownButtonFormField(
-          decoration: InputDecoration(labelText: 'Grade'),
+          decoration: const InputDecoration(labelText: 'Grade'),
           items: generateNaturals(16).map((int integer) {
             final grade = 'V$integer';
             return DropdownMenuItem(child: Text(grade), value: grade);
@@ -94,12 +94,13 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
               TextButton(
                   child: const Text('No'),
                   onPressed: () {
-                    Navigator.of(context).pop(false);
+                    Navigator.of(context).pop();
                   }),
               TextButton(
                   child: const Text('Yes'),
                   onPressed: () {
-                    Navigator.of(context).pop(true);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                     widget.onCancel();
                   })
             ],
