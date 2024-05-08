@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "720981249940",
+    "firebase_url": "https://la-beta-default-rtdb.firebaseio.com",
+    "project_id": "la-beta",
+    "storage_bucket": "la-beta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720981249940:android:b3f7742377bdd4b22ec981",
+        "android_client_info": {
+          "package_name": "com.duendevelopments.labeta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720981249940-srlm7dev3btjeakdi6jjsqij22mrslbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7TPuio80DBWl6-7tdeSKMK9zX6jgaqFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720981249940-srlm7dev3btjeakdi6jjsqij22mrslbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720981249940-t2i1ochu630bmppo47e2m0qe82nkibc6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.duendevelopments.labeta"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720981249940:android:03db94653a6b623e2ec981",
+        "android_client_info": {
+          "package_name": "com.example.labeta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720981249940-srlm7dev3btjeakdi6jjsqij22mrslbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7TPuio80DBWl6-7tdeSKMK9zX6jgaqFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720981249940-srlm7dev3btjeakdi6jjsqij22mrslbc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720981249940-t2i1ochu630bmppo47e2m0qe82nkibc6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.chrishenx.labeta"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
