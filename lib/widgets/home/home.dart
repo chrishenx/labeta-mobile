@@ -3,6 +3,7 @@ import 'package:labeta/widgets/new_boulder/basic_input.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:labeta/widgets/sector/new.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -14,7 +15,7 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DevelBoulder'),
+        title: const Text('LaBeta'),
         actions: [
           TextButton(
               onPressed: null,
@@ -36,12 +37,7 @@ class Home extends StatelessWidget {
         icon: const Icon(Icons.add),
         onPressed: () => {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return NewBoulderBasicInput(
-              onCancel: () {
-                // TODO: Check if this is needed or not
-                // Navigator.popUntil(context, (route) => route.isFirst);
-              },
-            );
+            return const NewSector();
           }))
         },
         iconSize: 40,

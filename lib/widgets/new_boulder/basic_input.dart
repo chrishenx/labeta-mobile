@@ -12,7 +12,7 @@ class NewBoulderBasicInput extends StatefulWidget {
   const NewBoulderBasicInput({super.key, required this.onCancel});
 
   @override
-  _NewBoulderBasicInputState createState() => _NewBoulderBasicInputState();
+  State<NewBoulderBasicInput> createState() => _NewBoulderBasicInputState();
 }
 
 class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
