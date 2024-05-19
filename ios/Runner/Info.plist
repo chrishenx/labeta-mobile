@@ -4,6 +4,8 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We access the library to configure images of the sectors, routes and boulders.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>The camera is used to take pictures of the routes and boulders so they can be registered.</string>
 	<key>CFBundleDevelopmentRegion</key>

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
@@ -14,7 +16,7 @@ class AuthWrapper extends StatelessWidget {
     } else {
       Logger.log(
           'AuthWrapper - Initial user "${user.uid}" created at ${user.metadata.creationTime}, last signed in at ${user.metadata.lastSignInTime}');
-      return Home();
+      return const Home();
     }
   }
 }
