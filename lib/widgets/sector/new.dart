@@ -26,7 +26,10 @@ class _NewSectorState extends State<NewSector> {
   @override
   void initState() {
     super.initState();
-    getLostData();
+    // Only run if on Android
+    if (Platform.isAndroid) {
+      getLostData();
+    }
   }
 
   @override
@@ -44,7 +47,7 @@ class _NewSectorState extends State<NewSector> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: const Text('Register a new boulder'),
+          title: const Text('Registrar un nuevo sector'),
         ),
         body: Form(
           child: Column(
@@ -84,8 +87,8 @@ class _NewSectorState extends State<NewSector> {
                       },
                       child: Text(
                           currentImageFile == null
-                              ? 'Select the main picture of the sector'
-                              : 'Replace the pic :)',
+                              ? 'Selecciona la foto principal del sector :)'
+                              : 'Reemplaza la foto ;)',
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 18)),
                     ),
