@@ -130,8 +130,7 @@ class _NewSectorState extends State<NewSector> {
   }
 
   void handleError(dynamic exception) {
-    Logger.log(
-          'NewSector - exception $exception');
+    Logger.log('NewSector - exception $exception');
   }
 
   void handleSubmit() {
@@ -141,11 +140,15 @@ class _NewSectorState extends State<NewSector> {
   }
 
   bool areAllFieldsCompleted() {
-    return name.isNotEmpty && description.isNotEmpty && currentImageFile != null;
+    return name.isNotEmpty &&
+        description.isNotEmpty &&
+        currentImageFile != null;
   }
 
   bool isAnyFieldFilled() {
-    return name.isNotEmpty || description.isNotEmpty || currentImageFile != null;
+    return name.isNotEmpty ||
+        description.isNotEmpty ||
+        currentImageFile != null;
   }
 
   Widget buildSectorNameInput() {
@@ -187,17 +190,14 @@ class _NewSectorState extends State<NewSector> {
   }
 
   Widget buildSubmitButton() {
-    return Row(
-      children: [
-        const Spacer(),
-        Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 40)),
-                onPressed: areAllFieldsCompleted() ? () => {} : null,
-                child: const Text('Crear'))),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 64, vertical: 12)),
+          onPressed: areAllFieldsCompleted() ? () => {} : null,
+          child: const Text('Crear')),
     );
   }
 
@@ -245,10 +245,10 @@ class _NewSectorState extends State<NewSector> {
 }
 
 Future<void> pickImage(List args) async {
-    BackgroundIsolateBinaryMessenger.ensureInitialized(args[0]);
-    final ImagePicker imagePicker = ImagePicker();
-    imagePicker.pickImage(source: ImageSource.gallery).then((value) {
-      final SendPort sendPort = args[1];
-      sendPort.send(value?.path);
-    });
-  }
+  BackgroundIsolateBinaryMessenger.ensureInitialized(args[0]);
+  final ImagePicker imagePicker = ImagePicker();
+  imagePicker.pickImage(source: ImageSource.gallery).then((value) {
+    final SendPort sendPort = args[1];
+    sendPort.send(value?.path);
+  });
+}
