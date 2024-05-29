@@ -140,8 +140,12 @@ class _NewSectorState extends State<NewSector> {
     }
   }
 
-  bool areFieldsCompleted() {
-    return name.isNotEmpty && description.isNotEmpty;
+  bool areAllFieldsCompleted() {
+    return name.isNotEmpty && description.isNotEmpty && currentImageFile != null;
+  }
+
+  bool isAnyFieldFilled() {
+    return name.isNotEmpty || description.isNotEmpty || currentImageFile != null;
   }
 
   Widget buildSectorNameInput() {
@@ -191,7 +195,7 @@ class _NewSectorState extends State<NewSector> {
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 40)),
-                onPressed: areFieldsCompleted() ? () => {} : null,
+                onPressed: areAllFieldsCompleted() ? () => {} : null,
                 child: const Text('Crear'))),
       ],
     );
@@ -199,6 +203,11 @@ class _NewSectorState extends State<NewSector> {
 
   // TODO: Figure out how to move this to a reusable widget
   Future<bool?> handleOnCancel(BuildContext context) {
+    // Don't show the dialog if the user hasnt filled any field
+    if (!isAnyFieldFilled()) {
+      Navigator.pop(context);
+      return Future.value(true);
+    }
     return showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
