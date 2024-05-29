@@ -54,7 +54,7 @@ class _NewBoulderBasicInputState extends State<NewBoulderBasicInput> {
           decoration: const InputDecoration(labelText: 'Grade'),
           items: generateNaturals(16).map((int integer) {
             final grade = 'V$integer';
-            return DropdownMenuItem(child: Text(grade), value: grade);
+            return DropdownMenuItem(value: grade, child: Text(grade));
           }).toList(),
           onChanged: (String? newGrade) {
             // call set state shortly only if the value is not null and different

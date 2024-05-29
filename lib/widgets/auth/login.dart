@@ -7,7 +7,7 @@ import 'package:uiblock/uiblock.dart';
 class Login extends StatefulWidget {
   final Function onSignUpClick;
 
-  Login({required this.onSignUpClick});
+  const Login({super.key, required this.onSignUpClick});
 
   @override
   _LoginState createState() => _LoginState();
@@ -67,10 +67,8 @@ class _LoginState extends State<Login> {
         const Text("Don't have an account?"),
         TextButton(
             onPressed: () {
-              if (widget.onSignUpClick != null) {
-                widget.onSignUpClick();
-              }
-            },
+              widget.onSignUpClick();
+                        },
             child: const Text('Sign up here!'))
       ]),
     );
@@ -96,7 +94,7 @@ class _LoginState extends State<Login> {
                 buildAlreadyLoginRow(),
                 SingleClickAuth(
                     onSignInStarted: () => UIBlock.block(context,
-                        customLoaderChild: DefaultLoader()),
+                        customLoaderChild: const DefaultLoader()),
                     onSignInCompleted: () => UIBlock.unblock(context))
               ],
             ),

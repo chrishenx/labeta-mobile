@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DefaultLoader extends StatelessWidget {
+  const DefaultLoader({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CircularProgressIndicator(

@@ -7,7 +7,7 @@ import 'package:uiblock/uiblock.dart';
 class SignUp extends StatefulWidget {
   final Function onLoginClick;
 
-  SignUp({required this.onLoginClick});
+  const SignUp({super.key, required this.onLoginClick});
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
       padding: const EdgeInsets.only(top: 8),
       child: TextFormField(
         validator: Validators.validatePassword,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'someone@example.com', labelText: 'Email'),
       ),
     );
@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: TextFormField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'Password', labelText: 'Type your password'),
         obscureText: true,
         controller: passwordController,
@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: TextFormField(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'Confirm password', labelText: 'Confirm your password'),
         obscureText: true,
         validator: (value) =>
@@ -67,8 +67,8 @@ class _SignUpState extends State<SignUp> {
           child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: ElevatedButton(
-                child: Text('Sign Up'),
                 onPressed: handleSubmit,
+                child: const Text('Sign Up'),
               )),
         )
       ],
@@ -79,14 +79,12 @@ class _SignUpState extends State<SignUp> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 24),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Text('Already signed up?'),
+        const Text('Already signed up?'),
         TextButton(
             onPressed: () {
-              if (widget.onLoginClick != null) {
-                widget.onLoginClick();
-              }
-            },
-            child: Text('Login here!'))
+              widget.onLoginClick();
+                        },
+            child: const Text('Login here!'))
       ]),
     );
   }
@@ -112,7 +110,7 @@ class _SignUpState extends State<SignUp> {
                 buildAlreadySignUpRow(),
                 SingleClickAuth(
                     onSignInStarted: () => UIBlock.block(context,
-                        customLoaderChild: DefaultLoader()),
+                        customLoaderChild: const DefaultLoader()),
                     onSignInCompleted: () => UIBlock.unblock(context))
               ],
             ),

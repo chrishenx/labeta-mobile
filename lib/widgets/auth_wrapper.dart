@@ -12,7 +12,7 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User?>(context);
     if (user == null) {
-      return Authenticate();
+      return const Authenticate();
     } else {
       Logger.log(
           'AuthWrapper - Initial user "${user.uid}" created at ${user.metadata.creationTime}, last signed in at ${user.metadata.lastSignInTime}');
