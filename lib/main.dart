@@ -1,14 +1,29 @@
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:labeta/services/auth.dart';
+import 'package:labeta/utils/logger.dart';
 import 'package:labeta/widgets/auth_wrapper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  if (kDebugMode) {
+   try {
+     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+     FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
+     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+   } catch (e) {
+     Logger.error(e.toString());
+   }
+ }
+
   runApp(const MyApp());
 }
 
