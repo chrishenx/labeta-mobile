@@ -28,13 +28,28 @@ class Validators {
     };
   }
 
+  static final String? Function(String?) validateNotEmpty =
+      createFormFieldValidator((value) => value.isNotEmpty, 'Este campo es obligatorio.');
+
   static final String? Function(String?) validateEmail =
-      createFormFieldValidator(isEmail, 'Type a valid email address.');
+      createFormFieldValidator(isEmail, 'Ingresa un email válido.');
 
   static final String? Function(String?) validatePassword =
       createFormFieldValidator(isMediumPassword,
-          'Use a better password (6 o more characters, A-Z, a-z, 0-9)');
+          'Usa una mejor contraseña (6 o mas caracteres, A-Z, a-z, 0-9)');
 
   static final String? Function(String?) validatePrintable = 
-      createFormFieldValidator(isPrintable, 'Only printable characters are allowed');
+      createFormFieldValidator(isPrintable, 'Solo caracteres imprimibles son permitidos.');
+}
+
+String? Function(String? value) composeValidators(List<String? Function(String?)> validators) {
+  return (String? value) {
+    for (final validator in validators) {
+      final result = validator(value);
+      if (result != null) {
+        return result;
+      }
+    }
+    return null;
+  };
 }

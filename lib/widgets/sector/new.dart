@@ -3,6 +3,8 @@ import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:labeta/models/sector.dart';
+import 'package:labeta/services/sectors.dart';
 import 'package:labeta/utils/logger.dart';
 import 'package:labeta/utils/validators.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,11 +19,13 @@ class NewSector extends StatefulWidget {
 
 // Dart isolate ref: https://medium.com/@varmavetukuri1234/image-picker-using-dart-isolate-f9451c024e1d
 class _NewSectorState extends State<NewSector> {
-  final formKey = GlobalKey<FormState>(debugLabel: 'Login Form');
+  final SectorsService sectorsService = SectorsService();
+  final formKey = GlobalKey<FormState>(debugLabel: 'New Sector Form');
   final ImagePicker imagePicker = ImagePicker();
   File? currentImageFile;
   String name = '';
   String description = '';
+  bool isSubmitting = false;
 
   @override
   void initState() {
@@ -50,6 +54,7 @@ class _NewSectorState extends State<NewSector> {
           title: const Text('Registrar un nuevo sector'),
         ),
         body: Form(
+          key: formKey,
           child: Column(
             children: [
               Expanded(
@@ -133,12 +138,6 @@ class _NewSectorState extends State<NewSector> {
     Logger.log('NewSector - exception $exception');
   }
 
-  void handleSubmit() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-    }
-  }
-
   bool areAllFieldsCompleted() {
     return name.isNotEmpty &&
         description.isNotEmpty &&
@@ -160,7 +159,7 @@ class _NewSectorState extends State<NewSector> {
             name = value;
           });
         },
-        validator: Validators.validatePrintable,
+        validator: composeValidators([Validators.validatePrintable, Validators.validateNotEmpty]),
         decoration: const InputDecoration(
             hintText: 'Escribe el nombre del sector aqui',
             labelText: 'Nombre del sector'),
@@ -196,9 +195,51 @@ class _NewSectorState extends State<NewSector> {
           style: ElevatedButton.styleFrom(
               padding:
                   const EdgeInsets.symmetric(horizontal: 64, vertical: 12)),
-          onPressed: areAllFieldsCompleted() ? () => {} : null,
-          child: const Text('Crear')),
+          onPressed: () async => areAllFieldsCompleted() || isSubmitting ? await handleSubmit() : null,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Crear'),
+              if (isSubmitting) ...[
+                const SizedBox(width: 8),
+                const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                ),
+              ]
+            ],
+          )),
     );
+  }
+
+  Future<void> handleSubmit() async {
+    if (!formKey.currentState!.validate() || currentImageFile == null) {
+      return;
+    }
+    formKey.currentState!.save();
+    setState(() {
+      isSubmitting = true;
+    });
+
+    // Save sector data to Firestore or any other database
+    final sector = SectorModel(
+      name: name,
+      description: description,
+      createdAt: DateTime.now(),
+    );
+    await sectorsService.createSector(sector, currentImageFile!);
+    setState(() {
+      isSubmitting = false;
+    });
+    if (context.mounted) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sector $name creado exitosamente!'), backgroundColor: Theme.of(context).colorScheme.primary));
+    }
   }
 
   // TODO: Figure out how to move this to a reusable widget
